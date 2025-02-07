@@ -11,5 +11,7 @@ extends EntityComponent
 			if Debug.debug:
 				print_rich("[color=",debug_color,"]",parent, " - Health : [/color]",health)
 
+@rpc("any_peer", "call_local")
 func damage(attack : Attack) -> void:
+	if not is_multiplayer_authority(): return
 	health -= attack.damage_amount

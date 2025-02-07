@@ -7,7 +7,7 @@ extends Control
 @export var world : Node2D
 
 func _ready() -> void:
-	var network_manager = NetworkManager.new()
+	var network_manager = ENETNetwork.new()
 	add_child(network_manager)
 	host.pressed.connect(network_manager.start_host)
 	join.pressed.connect(network_manager.start_client)

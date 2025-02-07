@@ -14,7 +14,9 @@ func handle_horizontal_movement(delta : float, entity : Entity = parent) -> void
 	var movement : float = move_toward(entity.velocity.x, speed * input, acceleration_mod * delta) #Calculate movement
 	entity.velocity.x = movement #Apply movement
 
+@rpc("any_peer", "call_local")
 #Applies knockback backed on the attack origin from the passed in Attack
 func apply_knockback(attack : Attack, entity : Entity = parent) -> void:
+	if not is_multiplayer_authority(): return
 	var knockback_vector : Vector2 = entity.global_position - attack.attack_position #Calculate knockback
 	if affected_by_knockback: entity.velocity += knockback_vector.normalized() * attack.knockback_force #Apply knockback

@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Debug="*res://debug.gd"
+GlobalFunctions="*res://main/singletons/global_functions/global_functions.gd"
 
 [input]
 

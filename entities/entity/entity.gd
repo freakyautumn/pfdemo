@@ -8,6 +8,10 @@ extends CharacterBody2D
 @export var gravity_component : GravityComponent
 @export var health_component : HealthComponent
 
+# Multiplayer ID
+@export_group("Network")
+@export var peer_id : int = 1
+
 #Called when the node is loaded
 func _ready() -> void:
 	#Sets the component parents
@@ -33,5 +37,5 @@ func _physics_process(delta: float) -> void:
 
 #Called to damage this body
 func damage(attack : Attack = Attack.new()) -> void:
-	if health_component: health_component.damage(attack)
-	if move_component: move_component.apply_knockback(attack)
+	if health_component: health_component.damage.rpc_id(peer_id, attack)
+	if move_component: move_component.apply_knockback.rpc_id(peer_id, attack)
