@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://br715ucb31lp8"]
+
+[ext_resource type="Script" path="res://_temp/ui/test_mp_menu.gd" id="1_j3wxu"]
+[ext_resource type="PackedScene" uid="uid://dm0lqbmi6l887" path="res://entities/player/player.tscn" id="2_b3vdk"]
+
+[node name="TestMPMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j3wxu")
+player_scene = ExtResource("2_b3vdk")
+
+[node name="Host" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Host"
+
+[node name="Join" type="Button" parent="."]
+layout_mode = 0
+offset_top = 40.0
+offset_right = 38.0
+offset_bottom = 71.0
+text = "Join"
+
+[node name="Start" type="Button" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 82.0
+offset_right = 45.0
+offset_bottom = 113.0
+text = "Start"

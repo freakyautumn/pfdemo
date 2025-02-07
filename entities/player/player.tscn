@@ -1,0 +1,60 @@
+[gd_scene load_steps=11 format=3 uid="uid://dm0lqbmi6l887"]
+
+[ext_resource type="Script" path="res://entities/player/player.gd" id="1_iut2n"]
+[ext_resource type="Script" path="res://entities/player/input_synchronizer.gd" id="2_4fuf5"]
+[ext_resource type="PackedScene" uid="uid://dtfshbag34wvp" path="res://entities/components/gravity_component.tscn" id="2_l8n8q"]
+[ext_resource type="PackedScene" uid="uid://biieear7oolbw" path="res://entities/components/input_component.tscn" id="3_klyi8"]
+[ext_resource type="PackedScene" uid="uid://c0rm5oqbukjb1" path="res://entities/components/move_component.tscn" id="4_cvpak"]
+[ext_resource type="PackedScene" uid="uid://n5qqbyoej78t" path="res://entities/components/jump_component.tscn" id="5_tmtnp"]
+[ext_resource type="PackedScene" uid="uid://ddgi2jlwo8f6o" path="res://entities/components/health_component.tscn" id="6_1amd3"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6mygl"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:peer_id")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bd6qe"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rdivd"]
+properties/0/path = NodePath("InputComponent:horizontal_input")
+properties/0/spawn = false
+properties/0/replication_mode = 2
+properties/1/path = NodePath("InputComponent:jump_input")
+properties/1/spawn = false
+properties/1/replication_mode = 2
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("input_component", "move_component", "jump_component", "gravity_component", "health_component")]
+collision_layer = 2
+script = ExtResource("1_iut2n")
+input_component = NodePath("InputComponent")
+move_component = NodePath("MoveComponent")
+jump_component = NodePath("JumpComponent")
+gravity_component = NodePath("GravityComponent")
+health_component = NodePath("HealthComponent")
+
+[node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_6mygl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_bd6qe")
+
+[node name="InputComponent" parent="." instance=ExtResource("3_klyi8")]
+debug_color = "orange"
+
+[node name="InputSynchronizer" type="MultiplayerSynchronizer" parent="InputComponent"]
+root_path = NodePath("../..")
+replication_config = SubResource("SceneReplicationConfig_rdivd")
+script = ExtResource("2_4fuf5")
+
+[node name="MoveComponent" parent="." instance=ExtResource("4_cvpak")]
+
+[node name="GravityComponent" parent="." instance=ExtResource("2_l8n8q")]
+
+[node name="JumpComponent" parent="." instance=ExtResource("5_tmtnp")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("6_1amd3")]
+health = 100
+debug_color = "pink"

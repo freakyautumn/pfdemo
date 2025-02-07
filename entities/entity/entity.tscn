@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://btswscforjbbt"]
+
+[ext_resource type="Script" path="res://entities/entity/entity.gd" id="1_jv350"]
+
+[node name="Entity" type="CharacterBody2D"]
+script = ExtResource("1_jv350")
