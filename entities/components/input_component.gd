@@ -30,6 +30,7 @@ func start_jump_buffer() -> void:
 	jump_buffer_timer.timeout.connect(_on_jump_buffer_timer_timeout)
 
 #Calls all the inputs
+@rpc("any_peer", "call_local")
 func handle_inputs() -> void:
 	handle_horizontal_input()
 	handle_jump_input()

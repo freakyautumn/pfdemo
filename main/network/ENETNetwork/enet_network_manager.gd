@@ -1,4 +1,4 @@
-class_name NetworkManager
+class_name ENETNetworkManager
 extends Node
 
 const DEFAULT_MAX_CLIENTS : int = 4
